@@ -59,7 +59,7 @@ automatically configured for all environments.
 
         # make sure we're using the MongoLogger in this environment
         if Rails.logger.respond_to?(:add_metadata)
-          Rails.logger.add_metadata(:user_guid =&gt; @user_guid)
+          Rails.logger.add_metadata(:user_guid => @user_guid)
         end
 
 1. And optionally, and PLEASE be sure to protect this behind a login, you can add a basic
@@ -88,15 +88,15 @@ And now, for a couple quick examples on getting ahold of this log data…
 First, here's how to get a handle on the MongoDB from within a Rails console:
 
     >> db = MongoLogger.mongo_connection
-    => #&lt;Mongo::DB:0x102f19ac0 @slave_ok=nil, @name="my_app" ... &gt;
+    => #<Mongo::DB:0x102f19ac0 @slave_ok=nil, @name="my_app" ... >
 
     >> collection = db[MongoLogger.mongo_collection_name]
-    => #&lt;Mongo::Collection:0x1031b3ee8 @name="development_log" ... &gt;
+    => #<Mongo::Collection:0x1031b3ee8 @name="development_log" ... >
 
 Once you've got the collection, you can find all requests for a specific user (with guid):
 
     >> cursor = collection.find(:user_guid => '12355')
-    => #&lt;Mongo::Cursor:0x1031a3e30 ... &gt;
+    => #<Mongo::Cursor:0x1031a3e30 ... >
     >> cursor.count
     => 5
 
