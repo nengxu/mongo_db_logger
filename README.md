@@ -32,7 +32,7 @@ automatically configured for all environments.
             host: localhost                # default: localhost
             port: 27017                    # default: 27017
 
-  With that in place, a new MongoDB document (record) will be created for each request and,
+1. With that in place, a new MongoDB document (record) will be created for each request and,
   by default will record the following information: Runtime, IP Address, Request Time, Controller,
   Action, Params and All messages sent to the logger. The structure of the Mongo document looks something like this:
 
@@ -52,7 +52,7 @@ automatically configured for all environments.
                             }
         }
 
-  Beyond that, if you want to add extra information to the base of the document
+1. Beyond that, if you want to add extra information to the base of the document
   (let’s say something like user_guid on every request that it’s available),
   you can just call the Rails.logger.add_metadata method on your logger like so
   (for example from a before_filter):
@@ -71,6 +71,17 @@ logging view by adding the following to your routes:
   parameters like `page=3` to page through to older entries, or `count=30` to change the
   number of log entries per page.
 
+  In Rails 3, there is a simple way to protect the logging view so that it is only accessibly from localhost, convenient for development mode.
+  Instead of doing "map.add_mongo_logger_resources!", put this into routes:
+
+        # to view logging info, only accessible locally for security reason
+        # TODO need to create customized controller behind Admin login
+        resources :logging,
+          :controller => "MongoDBLogging/Mongo",
+          :only => [:show, :index, :destroy],
+          :constraints => {:remote_ip => /127.0.0.1/}
+
+  
 ## Examples
 
 And now, for a couple quick examples on getting ahold of this log data…
