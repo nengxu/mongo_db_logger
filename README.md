@@ -53,7 +53,7 @@ automatically configured for all environments.
         }
 
 1. Beyond that, if you want to add extra information to the base of the document
-  (let’s say something like user_guid on every request that it’s available),
+  (let's say something like user_guid on every request that it's available),
   you can just call the Rails.logger.add_metadata method on your logger like so
   (for example from a before_filter):
 
@@ -85,7 +85,7 @@ logging view by adding the following to your routes:
 ## Examples
 
 And now, for a couple quick examples on getting ahold of this log data…
-First, here’s how to get a handle on the MongoDB from within a Rails console:
+First, here's how to get a handle on the MongoDB from within a Rails console:
 
     >> db = MongoLogger.mongo_connection
     => #&lt;Mongo::DB:0x102f19ac0 @slave_ok=nil, @name="my_app" ... &gt;
@@ -93,7 +93,7 @@ First, here’s how to get a handle on the MongoDB from within a Rails console:
     >> collection = db[MongoLogger.mongo_collection_name]
     => #&lt;Mongo::Collection:0x1031b3ee8 @name="development_log" ... &gt;
 
-Once you’ve got the collection, you can find all requests for a specific user (with guid):
+Once you've got the collection, you can find all requests for a specific user (with guid):
 
     >> cursor = collection.find(:user_guid => '12355')
     => #&lt;Mongo::Cursor:0x1031a3e30 ... &gt;
