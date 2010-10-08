@@ -17,14 +17,17 @@ class MongoDBLogging::MongoController < ActionController::Base
   end
 
 protected
-  def format_messages(messages, css_class)
-    return nil if messages.blank?
-    css_class ||= ''
-    css_class << ' messages'
-    output = %{<ul class="#{css_class}">\n}
-    messages.each do |mess|
-      output << "<li>#{mess}</li>\n"
+  def format_messages(messages)
+    return '' if messages.blank?
+    output = ''
+    %w{error warning info debug}.each do |type|
+      next if messages[type].blank?
+      output = %{<ul class="#{type} messages">\n}
+      messages[type].each do |message|
+        output << "<li>#{message}</li>\n"
+      end
+      output << "</ul>"
     end
-    output << "</ul>"
+    output
   end
 end

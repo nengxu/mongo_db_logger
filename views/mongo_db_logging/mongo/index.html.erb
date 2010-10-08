@@ -23,11 +23,8 @@
         <td class="id"><%= record['_id'] %><br/><%= record['request_time'].strftime("%d-%b-%Y %H:%M:%S %Z") %></td>
         <td class="controller"><%= record['controller'] %></td>
         <td class="action"><%= record['action'] %></td>
-        <td class="messages">        
-          <%= format_messages(record['messages']['error'], 'error') %>
-          <%= format_messages(record['messages']['warning'], 'warning') %>
-          <%= format_messages(record['messages']['info'], 'info') %>
-          <%= format_messages(record['messages']['debug'], 'debug') %>
+        <td class="messages">
+          <%= raw format_messages(record['messages']) %>
         </td>
       </tr>
       <% end -%>
